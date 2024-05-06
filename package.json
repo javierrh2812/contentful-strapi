@@ -1,0 +1,13 @@
+{
+  "name": "contentul-to-strapi",
+  "version": "1.0.0",
+  "description": "## Content model migration",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "contentful:export:content-model": "export $(xargs <.env) && contentful space export --space-id $CF_SPACE_ID --management-token $CF_MANAGEMENTE_TOKEN --skip-content --skip-editor-interfaces --skip-webhooks --skip-roles --skip-tags --export-dir ./inputs/ --content-file content-model.json",
+    "step-1": "node --experimental-json-modules --no-warnings scripts/step-1.mjs"
+  },
+  "author": "jramos",
+  "license": "ISC"
+}
