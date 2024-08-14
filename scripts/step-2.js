@@ -2,11 +2,7 @@ import json from "../inputs/content.json" assert { type: "json" };
 import fs from "node:fs/promises";
 import { rl } from "./utils.js";
 
-const { entries } = json;
-
 console.log("Reading content... \n");
-console.log(Object.keys(json))
-process.exit();
 
 for (const contentType of contentTypes) {
   console.log(`\nMigrating ${contentType.name} : `);
