@@ -1,0 +1,6 @@
+{
+  "exportDir": "./inputs",
+  "contentOnly": true, 
+  "queryEntries": ["sys.updatedAt[gte]=2025-03-19T00:00:00.000Z"],
+  "contentFile": "assets.json"
+}

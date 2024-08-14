@@ -1,0 +1,9 @@
+{
+  "exportDir": "./inputs",
+  "contentOnly": true, 
+  "queryEntries": [
+    "sys.contentType.sys.id[in]=ml-rich-text",
+    "metadata.tags.sys.id[nin]=eCommerce"
+  ],
+  "queryAssets": ["sys.updatedAt[gte]=2025-03-19T00:00:00.000Z"]
+}

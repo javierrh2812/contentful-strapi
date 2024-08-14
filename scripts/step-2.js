@@ -1,19 +1,18 @@
-import contentfulContentModel from "../inputs/content-model.json" assert { type: "json" };
+import json from "../inputs/content.json" assert { type: "json" };
 import fs from "node:fs/promises";
-import readline from "node:readline/promises";
-import { stdin as input, stdout as output } from "node:process";
-const rl = readline.createInterface({ input, output });
+import { rl } from "./utils.js";
 
-const { contentTypes } = contentfulContentModel;
+const { entries } = json;
 
-console.log("Reading content-types... \n");
+console.log("Reading content... \n");
+console.log(Object.keys(json))
+process.exit();
 
 for (const contentType of contentTypes) {
   console.log(`\nMigrating ${contentType.name} : `);
-  // const type = await rl.question(
-  //   "\n Component (C) / Collection Type (CT) / Single Type (ST): "
-  // );
-  const type = 'C'
+  const type = await rl.question(
+    "\nComponent (C) / Collection Type (CT) / Single Type (ST): "
+  );
   const schema = transformFromContentfulToStrapi(contentType, type);
   //console.log('writing schema.json ...')
   await writeStrapiSchema(contentType.name, schema, type);
@@ -51,13 +50,12 @@ function transformFromContentfulToStrapi(contentType, type) {
       transformContentfulFieldToStrapiAttribute(field);
   });
 
-  //console.log(JSON.stringify(schema, null, 2));
-
   return schema;
 }
 
-async function writeStrapiSchema(contentTypeName, schema, type) {
+async function writeStrapiContentType(contentTypeName, schema, type) {
   const folder = type === "C" ? "components" : "api";
+  //fs.mkdir()
   fs.writeFile(
     `./outputs/${folder}/${contentTypeName}.json`,
     JSON.stringify(schema, null, 2)
@@ -76,7 +74,7 @@ function transformContentfulFieldToStrapiAttribute(field) {
     Integer: "integer",
     Number: "float",
     Date: "datetime",
-    Location: 'json'
+    Location: "json",
   };
 
   if (!typesMap[field.type] && field.type !== "Link") {
@@ -179,8 +177,8 @@ function transformContentfulFieldToStrapiAttribute(field) {
       break;
   }
 
-  if (field.type === 'Link') {
-    console.log('Tipo link migrado a ', attribute.type)
+  if (field.type === "Link") {
+    //console.log("Tipo link migrado a ", attribute.type);
   }
 
   return attribute;

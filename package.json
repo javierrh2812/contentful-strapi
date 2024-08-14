@@ -5,8 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "contentful:export:content-model": "export $(xargs <.env) && contentful space export --space-id $CF_SPACE_ID --management-token $CF_MANAGEMENTE_TOKEN --skip-content --skip-editor-interfaces --skip-webhooks --skip-roles --skip-tags --export-dir ./inputs/ --content-file content-model.json",
-    "step-1": "node --experimental-json-modules --no-warnings scripts/step-1.mjs"
+    "contentful:export:content-model": "export $(xargs <.env) && contentful space export --space-id $CF_SPACE_ID --management-token $CF_MANAGEMENT_TOKEN --skip-content --skip-editor-interfaces --skip-webhooks --skip-roles --skip-tags --export-dir ./inputs/ --content-file content-model.json",
+    "contentful:export:content": "export $(xargs <.env) && contentful space export --space-id $CF_SPACE_ID --management-token $CF_MANAGEMENT_TOKEN --content-only --download-assets false --export-dir ./inputs/ --content-file content.json",
+    "contentful:export:content-filtered": "contentful space export --space-id $CF_SPACE_ID --content-only --content-file ml-rich.json --config configs/export.json",
+    "contentful:export:assets": "contentful space export --config configs/export-assets.json",
+    "contentful:export:editor": "contentful space export --space-id $CF_SPACE_ID --management-token $CF_MANAGEMENT_TOKEN --skip-content --export-dir ./inputs/ --content-file editor.json",
+    "step-1": "node --experimental-json-modules --no-warnings scripts/step-1.js",
+    "step-2": "node --experimental-json-modules --no-warnings scripts/step-2.js"
   },
   "author": "jramos",
   "license": "ISC"
