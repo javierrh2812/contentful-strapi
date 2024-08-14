@@ -10,7 +10,6 @@ for (const contentType of contentTypes) {
     "\nComponent (C) / Collection Type (CT) / Single Type (ST): "
   );
   const schema = transformFromContentfulToStrapi(contentType, type);
-  //console.log('writing schema.json ...')
   await writeStrapiSchema(contentType.name, schema, type);
 }
 
